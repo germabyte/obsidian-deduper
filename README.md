@@ -1,149 +1,144 @@
-# obsidian-deduper
-
-A graphical application designed to identify and manage duplicate Markdown files within an Obsidian vault. This tool efficiently scans your vault, compares file contents based on text similarity, and groups files that are duplicates or nearly identical. It is ideal for anyone looking to keep their Obsidian vault organized and free of redundant content.
-
----
+# 🧠 Obsidian Duplicate Finder
 
 ## 1. Introduction and Purpose
 
-**Introduction:**  
-obsidian-deduper is a user-friendly desktop application built with Python and Tkinter. It scans your Obsidian vault for duplicate Markdown files by analyzing the contents and calculating their similarity using advanced text processing techniques.
+**Obsidian Duplicate Finder** is a standalone desktop application designed to help users identify and remove duplicate or near-duplicate Markdown (`.md`) files in an [Obsidian](https://obsidian.md/) vault. The tool provides a visual interface for:
 
-**Purpose:**  
-- **Problem Solved:** Helps identify and clean up duplicate or similar files that may clutter your vault.  
-- **Value Proposition:**  
-  - Simplifies vault maintenance by automatically detecting duplicates.  
-  - Saves time and reduces manual effort when organizing notes.  
-  - Provides a clear visual interface to preview and delete duplicates safely.
+- Scanning all Markdown files in a selected folder (vault)
+- Calculating textual similarity using TF-IDF and cosine similarity
+- Grouping similar documents
+- Previewing and selectively deleting redundant files
 
----
+### Problem Statement
 
-## 2. Dependencies (Required Software)
+Users working extensively in Obsidian or any Markdown-based note-taking system often accumulate redundant notes due to copy-pasting, repeated imports, or overlapping ideas. Manually identifying such duplicates is tedious and error-prone.
 
-The following software and libraries are required to run obsidian-deduper:
+### Value Proposition
 
-- **Python 3.6 or Higher**  
-  - **Description:** The programming language used to develop this application.  
-  - **Installation:** Download and install Python from the official website: [https://www.python.org/downloads/](https://www.python.org/downloads/)
+This application automates the process of duplicate detection, saving time and decluttering knowledge bases. It offers:
 
-- **Tkinter**  
-  - **Description:** A standard GUI toolkit for Python that creates the application's graphical interface.  
-  - **Installation:**  
-    - Windows and macOS: Usually comes pre-installed with Python.  
-    - Linux: Install via your package manager (e.g., `sudo apt-get install python3-tk`).
-
-- **scikit-learn**  
-  - **Description:** Library used for computing text similarities using techniques like TF-IDF and cosine similarity.  
-  - **Installation:**  
-    ```bash
-    pip install scikit-learn
-    ```
-
-- **NumPy**  
-  - **Description:** Provides support for large, multi-dimensional arrays and matrices along with a collection of mathematical functions.  
-  - **Installation:**  
-    ```bash
-    pip install numpy
-    ```
-
-- **nltk (Natural Language Toolkit)**  
-  - **Description:** Helps in processing and cleaning text data, especially for removing stopwords.  
-  - **Installation:**  
-    ```bash
-    pip install nltk
-    ```  
-  - **Additional Setup:** The program will automatically download the NLTK stopwords. If needed, this can also be triggered manually with:  
-    ```bash
-    python -m nltk.downloader stopwords
-    ```
+- Adjustable similarity threshold
+- Real-time file preview
+- Batch or individual file deletion with confirmation
+- Progress tracking for large vaults
 
 ---
 
-## 3. Getting Started (Installation and Execution)
+## 2. Dependencies (Required Software/Libraries)
 
-### Downloading the Code
+The following software and Python libraries are **required** to run the program:
 
-1. Navigate to the obsidian-deduper GitHub repository page.
+### ✅ Software
+
+- **Python 3.x**  
+  Required to run the application.  
+  ➤ Download from: [https://www.python.org/downloads](https://www.python.org/downloads)
+
+### ✅ Python Libraries
+
+The following Python libraries are used in this program:
+
+| Library | Description | Install Command |
+|--------|-------------|------------------|
+| `tkinter` | GUI library (built-in with Python) | *Included by default* |
+| `nltk` | Used for English stopword filtering | `pip install nltk` |
+| `scikit-learn` | Used for text vectorization and similarity calculation | `pip install scikit-learn` |
+| `numpy` | Handles numerical computations and averages | `pip install numpy` |
+
+> ⚠️ After installing `nltk`, make sure stopwords are downloaded by running:
+```python
+import nltk
+nltk.download('stopwords')
+```
+
+---
+
+## 3. Getting Started (Installation & Execution)
+
+### 📦 Download the Application
+
+1. Visit the GitHub repository page.
 2. Click the green **`<> Code`** button.
-3. Select **`Download ZIP`** from the dropdown menu.
-4. Save the ZIP file to a preferred location on your computer.
+3. Select **Download ZIP**.
+4. Extract the ZIP file to a location of your choice.
 
-### Extracting the ZIP
+### ▶️ Run the Program
 
-- **Windows:** Right-click on the downloaded ZIP file and choose **"Extract All..."**.  
-- **macOS:** Double-click the ZIP file to automatically extract its content.  
-- **Linux:** Use your file manager’s extract option or run the command:  
-  ```bash
-  unzip obsidian-deduper.zip
-  ```
+1. Open your terminal or command prompt:
+   - **Windows:** Press `Win + R`, type `cmd`, and hit Enter.
+   - **macOS:** Open **Terminal** from Applications > Utilities.
+   - **Linux:** Use your system terminal.
 
-### Running the Program
+2. Navigate to the folder where you extracted the program using:
+```bash
+cd path/to/extracted/folder
+```
 
-1. Open a terminal (Command Prompt on Windows or Terminal on macOS/Linux).
-2. Change the directory to the extracted repository folder using the `cd` command. For example:
-   ```bash
-   cd path/to/obsidian-deduper
-   ```
-3. Execute the program by running:
-   ```bash
-   python obsidian-deduper.py
-   ```
-4. The graphical interface will launch, displaying the "Obsidian Duplicate Finder" window.
+3. Run the application using:
+```bash
+python obsidian_duplicate_finder.py
+```
 
 ---
 
-## 4. Using the Program (User Guide)
+## 4. User Guide (How to Effectively Use the Program)
 
-Once the program is running, follow these steps to detect and manage duplicate files:
+### ✅ Step-by-Step Instructions
 
-1. **Select Vault Folder:**  
-   - Click the **"Select Vault Folder"** button.
-   - In the dialog that appears, navigate to and select the folder containing your Obsidian vault (the directory with your Markdown files).
+1. **Launch the Application.**  
+   The GUI window will open.
 
-2. **Set Similarity Threshold:**  
-   - Use the provided spinbox to set the sensitivity (percentage) for determining duplicate files. A higher percentage means only very similar files are flagged.
+2. **Select Your Obsidian Vault Folder.**  
+   Click **“Select Vault Folder”** and choose the folder containing your `.md` files.
 
-3. **Find Duplicates:**  
-   - Click on the **"Find Duplicates"** button.
-   - The application will read all Markdown files, compute text similarities, and display duplicate groups.
-   - A progress bar will update as the scanning process proceeds.
+3. **Set Similarity Threshold (Optional).**  
+   Adjust the percentage slider to set how similar files must be to be considered duplicates. Default is **80%**.
 
-4. **Review Duplicate Groups:**  
-   - The left pane displays groups with the number of similar files, along with details like file path, size, and last modified date.
-   - Click on a group or individual file to preview its content in the right pane.
+4. **Click “Find Duplicates”.**  
+   The program scans your folder and shows duplicate groups in a tree view.
 
-5. **Delete Selected Files:**  
-   - Select one or more files (or an entire group) in the treeview.
-   - Click the **"Delete Selected Files"** button.
-   - For duplicate groups, a dialog may appear allowing you to choose specifically which files to remove.
+5. **Preview Files.**  
+   Click on any file to view its contents on the right.
+
+6. **Delete Files.**  
+   - Select individual files or whole groups.
+   - Click **“Delete Selected Files”** to remove them permanently after confirmation.
 
 ---
 
-## 5. Use Cases and Examples
+## 5. Use Cases and Real-World Examples
 
-### Use Case 1: Organizing a Personal Knowledge Base
+### 📘 Use Case 1: Removing Copied Notes from Online Sources
+**Scenario:** You imported multiple versions of a note from the web with slight changes.
 
-- **Scenario:** A user maintains a personal Obsidian vault for journaling and research notes. Over time, duplicate or near-duplicate entries are created.
-- **Example:**  
-  - **Input:** Multiple Markdown files with very similar content about "Project Ideas".
-  - **Expected Output:** The program groups these files under one duplicate group with an average similarity (e.g., 85%), highlighting them for review or deletion.
-
-### Use Case 2: Optimizing Documentation in a Team Environment
-
-- **Scenario:** A small team uses Obsidian for collaborative documentation. Duplicate files can occur due to multiple contributions.
-- **Example:**  
-  - **Input:** Two or more files containing almost identical meeting notes.
-  - **Expected Output:** The application identifies these as duplicates, allowing the team to consolidate the notes into a single, updated file.
-
-### Use Case 3: Cleaning Up Datasets from Automated Imports
-
-- **Scenario:** A researcher imports a large collection of Markdown files from various sources. Some files may carry redundant information.
-- **Example:**  
-  - **Input:** Markdown files with overlapping content related to research data.
-  - **Expected Output:** The program groups duplicates together, enabling the user to efficiently remove or combine similar files, thus enhancing dataset quality.
+- **Input:** Two `.md` files with overlapping paragraphs.
+- **Action:** Run the tool and set the threshold to 85%.
+- **Output:** Both files are flagged in the same group, allowing you to keep the cleaner version.
 
 ---
 
-## 6. Disclaimer
+### 🧑‍💻 Use Case 2: Merging Similar Meeting Notes
+**Scenario:** You take notes for meetings but forget and create new ones each time.
 
-This repository is continuously updated, and changes to the code may render parts of this README file outdated. No guarantee is made that this file will consistently reflect the current state of the repository.
+- **Input:** `meeting_2024.md`, `project_meeting.md`
+- **Action:** Tool detects >90% similarity and groups them.
+- **Output:** You merge relevant content and delete duplicates.
+
+---
+
+### 📁 Use Case 3: Optimizing Vault Size
+**Scenario:** Your vault exceeds cloud sync storage due to redundant notes.
+
+- **Input:** A large folder of 1000+ notes.
+- **Action:** Scan with 75% threshold.
+- **Output:** Hundreds of similar files grouped, helping you reclaim space.
+
+---
+
+## 6. Disclaimer & Important Notices
+
+- This repository and its contents **may be updated at any time without notice**.
+- Updates may render parts of this README outdated.
+- No commitment is made to maintain or update the README.
+- The software is provided **"as-is"** without any guarantees of performance, compatibility, or correctness.
+- Use at your own risk. Always back up your data before deleting files.
