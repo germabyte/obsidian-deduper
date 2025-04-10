@@ -2,50 +2,45 @@
 
 ## 1. Introduction and Purpose
 
-**Obsidian Duplicate Finder** is a standalone desktop application designed to help users identify and remove duplicate or near-duplicate Markdown (`.md`) files in an [Obsidian](https://obsidian.md/) vault. The tool provides a visual interface for:
+**Obsidian Duplicate Finder** is a standalone desktop application that helps users identify and remove duplicate or near-duplicate Markdown (`.md`) files from an [Obsidian](https://obsidian.md/) vault. This user-friendly tool:
 
-- Scanning all Markdown files in a selected folder (vault)
-- Calculating textual similarity using TF-IDF and cosine similarity
-- Grouping similar documents
-- Previewing and selectively deleting redundant files
+- Scans all Markdown files in a selected folder (vault)
+- Detects duplicates using text similarity
+- Previews and compares files side-by-side
+- Allows users to delete redundant files with one click
 
 ### Problem Statement
 
-Users working extensively in Obsidian or any Markdown-based note-taking system often accumulate redundant notes due to copy-pasting, repeated imports, or overlapping ideas. Manually identifying such duplicates is tedious and error-prone.
+Obsidian users often accumulate similar or duplicate notes due to imports, idea repetition, or editing across devices. Manually sorting these is time-consuming and error-prone.
 
 ### Value Proposition
 
-This application automates the process of duplicate detection, saving time and decluttering knowledge bases. It offers:
+This tool streamlines vault organization by automatically identifying similar Markdown files. Users can:
 
-- Adjustable similarity threshold
-- Real-time file preview
-- Batch or individual file deletion with confirmation
-- Progress tracking for large vaults
+- Control the similarity detection threshold
+- Visually inspect matched content
+- Selectively delete duplicate files
+- Save time and reduce clutter in their note vaults
 
 ---
 
 ## 2. Dependencies (Required Software/Libraries)
 
-The following software and Python libraries are **required** to run the program:
-
-### ✅ Software
+### ✅ Required Software
 
 - **Python 3.x**  
-  Required to run the application.  
-  ➤ Download from: [https://www.python.org/downloads](https://www.python.org/downloads)
+  ➤ Download: [https://www.python.org/downloads](https://www.python.org/downloads)
 
-### ✅ Python Libraries
+### ✅ Required Python Libraries
 
-The following Python libraries are used in this program:
+| Library         | Description                                           | Installation Command        |
+|----------------|-------------------------------------------------------|-----------------------------|
+| `tkinter`      | Used to build the graphical interface                 | *Pre-installed with Python* |
+| `nltk`         | Provides stopword filtering for better text matching  | `pip install nltk`          |
+| `scikit-learn` | Enables text similarity calculation with TF-IDF       | `pip install scikit-learn`  |
+| `numpy`        | Supports numeric operations like averaging            | `pip install numpy`         |
 
-| Library | Description | Install Command |
-|--------|-------------|------------------|
-| `tkinter` | GUI library (built-in with Python) | *Included by default* |
-| `nltk` | Used for English stopword filtering | `pip install nltk` |
-| `scikit-learn` | Used for text vectorization and similarity calculation | `pip install scikit-learn` |
-| `numpy` | Handles numerical computations and averages | `pip install numpy` |
-
-> ⚠️ After installing `nltk`, make sure stopwords are downloaded by running:
+> After installing NLTK, download English stopwords by running:
 ```python
 import nltk
 nltk.download('stopwords')
@@ -55,90 +50,74 @@ nltk.download('stopwords')
 
 ## 3. Getting Started (Installation & Execution)
 
-### 📦 Download the Application
+### 📦 Download the App
 
-1. Visit the GitHub repository page.
+1. Go to the GitHub repository.
 2. Click the green **`<> Code`** button.
 3. Select **Download ZIP**.
-4. Extract the ZIP file to a location of your choice.
+4. Extract the ZIP file to a folder.
 
 ### ▶️ Run the Program
 
-1. Open your terminal or command prompt:
-   - **Windows:** Press `Win + R`, type `cmd`, and hit Enter.
-   - **macOS:** Open **Terminal** from Applications > Utilities.
-   - **Linux:** Use your system terminal.
-
-2. Navigate to the folder where you extracted the program using:
+1. Open a terminal or command prompt.
+2. Navigate to the extracted folder using the `cd` command:
 ```bash
 cd path/to/extracted/folder
 ```
-
-3. Run the application using:
+3. Start the program with:
 ```bash
-python obsidian_duplicate_finder.py
+python obsidian-deduper.py
 ```
 
 ---
 
 ## 4. User Guide (How to Effectively Use the Program)
 
-### ✅ Step-by-Step Instructions
+### 💡 How to Use
 
-1. **Launch the Application.**  
-   The GUI window will open.
+1. **Launch the App**  
+   The interface will open with controls and an empty results pane.
 
-2. **Select Your Obsidian Vault Folder.**  
-   Click **“Select Vault Folder”** and choose the folder containing your `.md` files.
+2. **Select Your Vault Folder**  
+   Click **“Select Vault Folder”** and choose the folder containing `.md` files.
 
-3. **Set Similarity Threshold (Optional).**  
-   Adjust the percentage slider to set how similar files must be to be considered duplicates. Default is **80%**.
+3. **Adjust Similarity Threshold (Optional)**  
+   The default is 80%. Lower it to catch looser matches, or increase for stricter matches.
 
-4. **Click “Find Duplicates”.**  
-   The program scans your folder and shows duplicate groups in a tree view.
+4. **Click “Find Duplicates”**  
+   The program scans and lists duplicate groups in a tree view.
 
-5. **Preview Files.**  
-   Click on any file to view its contents on the right.
+5. **Review and Compare**  
+   Click a file to preview its content on the right pane.
 
-6. **Delete Files.**  
-   - Select individual files or whole groups.
-   - Click **“Delete Selected Files”** to remove them permanently after confirmation.
+6. **Delete Duplicates**  
+   Select individual files or entire groups and click **“Delete Selected Files”**.
 
 ---
 
 ## 5. Use Cases and Real-World Examples
 
-### 📘 Use Case 1: Removing Copied Notes from Online Sources
-**Scenario:** You imported multiple versions of a note from the web with slight changes.
+### 1. 📝 Prevent Duplicate Meeting Notes
+- **Situation:** You wrote similar summaries from different days.
+- **Solution:** Run the app and it groups them for review.
+- **Benefit:** Merge notes and delete redundancy.
 
-- **Input:** Two `.md` files with overlapping paragraphs.
-- **Action:** Run the tool and set the threshold to 85%.
-- **Output:** Both files are flagged in the same group, allowing you to keep the cleaner version.
+### 2. 🗂 Clean Up After Data Imports
+- **Situation:** Imported data from another platform multiple times.
+- **Solution:** Set a 75% threshold and scan.
+- **Benefit:** Easily catch near-duplicate content.
 
----
-
-### 🧑‍💻 Use Case 2: Merging Similar Meeting Notes
-**Scenario:** You take notes for meetings but forget and create new ones each time.
-
-- **Input:** `meeting_2024.md`, `project_meeting.md`
-- **Action:** Tool detects >90% similarity and groups them.
-- **Output:** You merge relevant content and delete duplicates.
-
----
-
-### 📁 Use Case 3: Optimizing Vault Size
-**Scenario:** Your vault exceeds cloud sync storage due to redundant notes.
-
-- **Input:** A large folder of 1000+ notes.
-- **Action:** Scan with 75% threshold.
-- **Output:** Hundreds of similar files grouped, helping you reclaim space.
+### 3. 📉 Reduce Vault Size Before Sync
+- **Situation:** Cloud sync fails due to storage size.
+- **Solution:** Delete unnecessary duplicates after reviewing them.
+- **Benefit:** Leaner vault and faster syncs.
 
 ---
 
 ## 6. Disclaimer & Important Notices
 
-- This repository and its contents **may be updated at any time without notice**.
-- Updates may render parts of this README outdated.
-- No commitment is made to maintain or update the README.
-- The software is provided **"as-is"** without any guarantees of performance, compatibility, or correctness.
-- Use at your own risk. Always back up your data before deleting files.
+- This repository and its contents **may change at any time** without prior notice.
+- Updates might render some parts of this README outdated.
+- There is **no guarantee** of ongoing maintenance or updates.
+- The code is provided **"as-is"**, without any warranties or support.
+- Always **back up your files** before deleting any content.
